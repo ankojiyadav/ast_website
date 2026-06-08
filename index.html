@@ -59,6 +59,12 @@
     transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
   }
 
+  /* Disable custom cursor on touch devices for fluid interaction */
+  @media (pointer: coarse) {
+    .cursor, .cursor-ring { display: none !important; }
+    body, a, button, .sign-card, .planet-card, .testimonial-card { cursor: auto !important; }
+  }
+
   /* Stars background */
   .stars-canvas {
     position: fixed; top: 0; left: 0;
@@ -110,7 +116,7 @@
     font-family: 'DM Sans', sans-serif;
     padding: 9px 22px;
     border-radius: 100px;
-    cursor: none;
+    cursor: pointer;
     transition: all 0.3s;
     letter-spacing: 0.04em;
   }
@@ -128,7 +134,7 @@
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     text-align: center;
-    padding: 120px 48px 80px;
+    padding: 120px 24px 80px;
     position: relative;
     overflow: hidden;
   }
@@ -138,9 +144,9 @@
     filter: blur(80px);
     pointer-events: none;
   }
-  .orb1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(107,91,149,0.25) 0%, transparent 70%); top: -100px; left: -200px; }
-  .orb2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(74,143,168,0.2) 0%, transparent 70%); bottom: -50px; right: -150px; }
-  .orb3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .orb1 { width: 80vw; max-width: 600px; height: 80vw; max-height: 600px; background: radial-gradient(circle, rgba(107,91,149,0.25) 0%, transparent 70%); top: -100px; left: -200px; }
+  .orb2 { width: 70vw; max-width: 500px; height: 70vw; max-height: 500px; background: radial-gradient(circle, rgba(74,143,168,0.2) 0%, transparent 70%); bottom: -50px; right: -150px; }
+  .orb3 { width: 60vw; max-width: 400px; height: 60vw; max-height: 400px; background: radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); }
 
   .hero-eyebrow {
     font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
@@ -148,7 +154,8 @@
     font-weight: 500;
     margin-bottom: 28px;
     opacity: 0; animation: fadeUp 1s 0.3s forwards;
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    width: 100%;
   }
   .hero-eyebrow::before, .hero-eyebrow::after {
     content: ''; display: block; height: 0.5px; width: 40px;
@@ -157,7 +164,7 @@
 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 8vw, 96px);
+    font-size: clamp(44px, 10vw, 96px);
     font-weight: 300;
     line-height: 1.08;
     letter-spacing: -0.01em;
@@ -171,7 +178,7 @@
     display: block;
   }
   .hero-subtitle {
-    font-size: 17px; font-weight: 300;
+    font-size: clamp(15px, 4vw, 17px); font-weight: 300;
     color: rgba(232,213,176,0.6);
     max-width: 480px;
     line-height: 1.75;
@@ -181,6 +188,7 @@
   }
   .hero-actions {
     display: flex; gap: 16px; justify-content: center;
+    flex-wrap: wrap;
     opacity: 0; animation: fadeUp 1s 0.9s forwards;
   }
   .btn-primary {
@@ -191,7 +199,7 @@
     padding: 14px 32px;
     border-radius: 100px;
     border: none;
-    cursor: none;
+    cursor: pointer;
     letter-spacing: 0.03em;
     transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
   }
@@ -207,7 +215,7 @@
     padding: 14px 32px;
     border-radius: 100px;
     border: 0.5px solid rgba(201,169,110,0.3);
-    cursor: none;
+    cursor: pointer;
     letter-spacing: 0.03em;
     transition: all 0.3s;
   }
@@ -216,15 +224,16 @@
     background: rgba(201,169,110,0.07);
   }
 
-  /* Zodiac ring */
+  /* Zodiac ring - made fluid for mobile */
   .zodiac-ring {
     position: absolute;
-    width: 700px; height: 700px;
+    width: 150vw; max-width: 700px; 
+    height: auto; aspect-ratio: 1;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    animation: rotateSlow 80s linear infinite;
-    opacity: 0; animation: rotateSlow 80s linear infinite, fadeIn 2s 1.2s forwards;
+    opacity: 0; 
+    animation: rotateSlow 80s linear infinite, fadeIn 2s 1.2s forwards;
   }
   @keyframes rotateSlow { from { transform: translate(-50%,-50%) rotate(0); } to { transform: translate(-50%,-50%) rotate(360deg); } }
 
@@ -239,9 +248,7 @@
 
   /* SIGNS SECTION */
   .signs-section { padding: 120px 48px; }
-  .section-header {
-    text-align: center; margin-bottom: 72px;
-  }
+  .section-header { text-align: center; margin-bottom: 72px; }
   .section-label {
     font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
     color: var(--gold); font-weight: 500; margin-bottom: 20px;
@@ -249,13 +256,13 @@
   }
   .section-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 5vw, 56px);
+    font-size: clamp(32px, 8vw, 56px);
     font-weight: 300; line-height: 1.15;
     color: var(--white);
   }
   .section-title em { font-style: italic; color: var(--gold2); }
   .section-sub {
-    font-size: 15px; color: rgba(232,213,176,0.5);
+    font-size: clamp(14px, 4vw, 15px); color: rgba(232,213,176,0.5);
     max-width: 420px; margin: 20px auto 0; line-height: 1.75;
   }
 
@@ -270,40 +277,25 @@
     border: 0.5px solid rgba(201,169,110,0.12);
     border-radius: var(--r2);
     padding: 28px 24px;
-    cursor: none;
+    cursor: pointer;
     transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
     position: relative;
     overflow: hidden;
-    group: true;
   }
   .sign-card::before {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: linear-gradient(135deg, rgba(201,169,110,0.06) 0%, transparent 60%);
-    opacity: 0; transition: opacity 0.4s;
-    border-radius: inherit;
+    opacity: 0; transition: opacity 0.4s; border-radius: inherit;
   }
-  .sign-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    border-color: rgba(201,169,110,0.3);
-    background: rgba(255,255,255,0.05);
-  }
+  .sign-card:hover { transform: translateY(-6px) scale(1.02); border-color: rgba(201,169,110,0.3); background: rgba(255,255,255,0.05); }
   .sign-card:hover::before { opacity: 1; }
-  .sign-symbol {
-    font-size: 32px; margin-bottom: 12px; display: block;
-    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-  }
+  .sign-symbol { font-size: 32px; margin-bottom: 12px; display: block; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
   .sign-card:hover .sign-symbol { transform: scale(1.15); }
-  .sign-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px; font-weight: 400;
-    color: var(--gold2); margin-bottom: 4px;
-  }
+  .sign-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--gold2); margin-bottom: 4px; }
   .sign-dates { font-size: 11px; color: rgba(201,169,110,0.45); letter-spacing: 0.06em; margin-bottom: 14px; }
   .sign-element {
     font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 4px 12px; border-radius: 100px;
-    display: inline-block;
+    padding: 4px 12px; border-radius: 100px; display: inline-block;
   }
   .elem-fire { background: rgba(200,80,60,0.15); color: #e8906a; border: 0.5px solid rgba(200,80,60,0.2); }
   .elem-earth { background: rgba(90,140,80,0.15); color: #8fc48a; border: 0.5px solid rgba(90,140,80,0.2); }
@@ -316,10 +308,7 @@
     display: flex; gap: 80px; align-items: center;
     max-width: 1200px; margin: 0 auto;
   }
-  .reading-visual {
-    flex: 0 0 480px;
-    position: relative;
-  }
+  .reading-visual { flex: 0 0 480px; position: relative; }
   .chart-card {
     background: rgba(255,255,255,0.03);
     border: 0.5px solid rgba(201,169,110,0.15);
@@ -333,19 +322,19 @@
     top: -1px; left: 30px; right: 30px; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(201,169,110,0.4), transparent);
   }
-  .chart-inner {
-    width: 100%; aspect-ratio: 1;
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
+  .chart-inner { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; position: relative; }
+  
+  /* Fluid canvas styling */
+  canvas#birthChart, canvas#moonCanvas {
+    width: 100%; max-width: 380px; height: auto;
   }
+
   .reading-content { flex: 1; }
   .reading-content .section-label { text-align: left; }
   .reading-content .section-title { text-align: left; }
   .reading-content .section-sub { text-align: left; margin: 20px 0 40px; }
   .feature-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
-  .feature-item {
-    display: flex; gap: 16px; align-items: flex-start;
-  }
+  .feature-item { display: flex; gap: 16px; align-items: flex-start; }
   .feature-icon {
     width: 40px; height: 40px; flex-shrink: 0;
     background: rgba(201,169,110,0.08);
@@ -354,9 +343,7 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 18px;
   }
-  .feature-text h4 {
-    font-size: 15px; font-weight: 500; color: var(--gold2); margin-bottom: 4px;
-  }
+  .feature-text h4 { font-size: 15px; font-weight: 500; color: var(--gold2); margin-bottom: 4px; }
   .feature-text p { font-size: 13px; color: rgba(232,213,176,0.5); line-height: 1.65; }
 
   /* HOROSCOPE SECTION */
@@ -370,230 +357,89 @@
     overflow: hidden;
   }
   .today-card::before {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse at 80% 20%, rgba(107,91,149,0.15) 0%, transparent 60%),
                 radial-gradient(ellipse at 20% 80%, rgba(74,143,168,0.1) 0%, transparent 60%);
     pointer-events: none;
   }
-  .today-inner {
-    position: relative;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
-  }
-  .today-left .date-tag {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 24px; display: block;
-  }
-  .today-left h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(32px, 4vw, 48px); font-weight: 300;
-    line-height: 1.2; margin-bottom: 24px;
-  }
+  .today-inner { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .today-left .date-tag { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: block; }
+  .today-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 6vw, 48px); font-weight: 300; line-height: 1.2; margin-bottom: 24px; }
   .today-left h2 em { font-style: italic; color: var(--gold2); }
-  .today-left p {
-    font-size: 15px; color: rgba(232,213,176,0.6); line-height: 1.8; margin-bottom: 32px;
-  }
-  .today-stats {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-  }
-  .stat-pill {
-    background: rgba(201,169,110,0.07);
-    border: 0.5px solid rgba(201,169,110,0.15);
-    border-radius: var(--r);
-    padding: 14px 16px;
-    text-align: center;
-  }
-  .stat-pill .val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; font-weight: 400;
-    color: var(--gold2); display: block; line-height: 1;
-  }
-  .stat-pill .lbl {
-    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: rgba(201,169,110,0.45); margin-top: 4px; display: block;
-  }
-  .today-right { position: relative; }
-  .moon-visual {
-    width: 100%; aspect-ratio: 1;
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-  }
+  .today-left p { font-size: 15px; color: rgba(232,213,176,0.6); line-height: 1.8; margin-bottom: 32px; }
+  .today-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stat-pill { background: rgba(201,169,110,0.07); border: 0.5px solid rgba(201,169,110,0.15); border-radius: var(--r); padding: 14px 16px; text-align: center; }
+  .stat-pill .val { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: var(--gold2); display: block; line-height: 1; }
+  .stat-pill .lbl { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(201,169,110,0.45); margin-top: 4px; display: block; }
+  .today-right { position: relative; display: flex; justify-content: center; }
 
   /* PLANETS SECTION */
   .planets-section { padding: 120px 48px; }
   .planets-inner { max-width: 1200px; margin: 0 auto; }
-  .planets-grid {
-    display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px;
-    margin-top: 64px;
-  }
+  .planets-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 64px; }
   .planet-card {
-    background: rgba(255,255,255,0.03);
-    border: 0.5px solid rgba(201,169,110,0.1);
-    border-radius: var(--r2);
-    padding: 24px 16px;
-    text-align: center;
-    cursor: none;
-    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+    background: rgba(255,255,255,0.03); border: 0.5px solid rgba(201,169,110,0.1); border-radius: var(--r2);
+    padding: 24px 16px; text-align: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
   }
-  .planet-card:hover {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(201,169,110,0.25);
-    transform: translateY(-8px);
-  }
+  .planet-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(201,169,110,0.25); transform: translateY(-8px); }
   .planet-icon { font-size: 28px; margin-bottom: 12px; display: block; }
-  .planet-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px; color: var(--gold2); margin-bottom: 4px;
-  }
+  .planet-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--gold2); margin-bottom: 4px; }
   .planet-sign { font-size: 11px; color: rgba(201,169,110,0.45); letter-spacing: 0.06em; }
 
   /* TESTIMONIALS */
   .testimonials-section { padding: 120px 48px; max-width: 1200px; margin: 0 auto; }
-  .testimonials-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 64px;
-  }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 64px; }
   .testimonial-card {
-    background: rgba(255,255,255,0.03);
-    border: 0.5px solid rgba(201,169,110,0.12);
-    border-radius: var(--r2);
-    padding: 32px;
-    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+    background: rgba(255,255,255,0.03); border: 0.5px solid rgba(201,169,110,0.12);
+    border-radius: var(--r2); padding: 32px; transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
   }
-  .testimonial-card:hover {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(201,169,110,0.25);
-    transform: translateY(-4px);
-  }
+  .testimonial-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(201,169,110,0.25); transform: translateY(-4px); }
   .stars-row { color: var(--gold); font-size: 14px; margin-bottom: 18px; letter-spacing: 2px; }
-  .testimonial-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px; font-weight: 300; font-style: italic;
-    line-height: 1.65; color: rgba(232,213,176,0.8); margin-bottom: 24px;
-  }
-  .testimonial-author {
-    display: flex; align-items: center; gap: 12px;
-  }
-  .author-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: rgba(201,169,110,0.15);
-    border: 0.5px solid rgba(201,169,110,0.25);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 500; color: var(--gold2);
-    font-family: 'Cormorant Garamond', serif;
-  }
+  .testimonial-text { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; font-style: italic; line-height: 1.65; color: rgba(232,213,176,0.8); margin-bottom: 24px; }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(201,169,110,0.15); border: 0.5px solid rgba(201,169,110,0.25); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 500; color: var(--gold2); font-family: 'Cormorant Garamond', serif; }
   .author-info .name { font-size: 13px; font-weight: 500; color: var(--gold2); }
   .author-info .sign { font-size: 11px; color: rgba(201,169,110,0.4); letter-spacing: 0.06em; }
 
   /* CTA SECTION */
-  .cta-section {
-    padding: 120px 48px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-glow {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    width: 800px; height: 400px;
-    background: radial-gradient(ellipse, rgba(201,169,110,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .cta-section h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(40px, 6vw, 72px); font-weight: 300;
-    line-height: 1.1; margin-bottom: 24px; position: relative;
-  }
+  .cta-section { padding: 120px 48px; text-align: center; position: relative; overflow: hidden; }
+  .cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 80vw; max-width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(201,169,110,0.08) 0%, transparent 70%); pointer-events: none; }
+  .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 8vw, 72px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; position: relative; }
   .cta-section h2 em { font-style: italic; color: var(--gold2); }
-  .cta-section p {
-    font-size: 16px; color: rgba(232,213,176,0.5); max-width: 400px;
-    margin: 0 auto 48px; line-height: 1.75; position: relative;
-  }
-  .cta-input-row {
-    display: flex; gap: 12px; justify-content: center; max-width: 440px;
-    margin: 0 auto; position: relative;
-  }
-  .cta-input {
-    flex: 1;
-    background: rgba(255,255,255,0.04);
-    border: 0.5px solid rgba(201,169,110,0.25);
-    border-radius: 100px;
-    padding: 14px 24px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px; color: var(--white);
-    outline: none;
-    transition: border-color 0.3s;
-    cursor: none;
-  }
+  .cta-section p { font-size: 16px; color: rgba(232,213,176,0.5); max-width: 400px; margin: 0 auto 48px; line-height: 1.75; position: relative; }
+  .cta-input-row { display: flex; gap: 12px; justify-content: center; max-width: 440px; margin: 0 auto; position: relative; flex-wrap: wrap; }
+  .cta-input { flex: 1; min-width: 200px; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(201,169,110,0.25); border-radius: 100px; padding: 14px 24px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--white); outline: none; transition: border-color 0.3s; cursor: text; }
   .cta-input::placeholder { color: rgba(201,169,110,0.3); }
   .cta-input:focus { border-color: rgba(201,169,110,0.5); }
 
   /* FOOTER */
-  footer {
-    padding: 60px 48px 40px;
-    border-top: 0.5px solid rgba(201,169,110,0.1);
-    display: flex; justify-content: space-between; align-items: flex-end;
-  }
-  .footer-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px; color: var(--gold2); margin-bottom: 8px;
-  }
+  footer { padding: 60px 48px 40px; border-top: 0.5px solid rgba(201,169,110,0.1); display: flex; justify-content: space-between; align-items: flex-end; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--gold2); margin-bottom: 8px; }
   .footer-copy { font-size: 12px; color: rgba(201,169,110,0.3); }
-  .footer-links {
-    display: flex; gap: 32px; list-style: none; align-items: center;
-  }
-  .footer-links a {
-    font-size: 12px; color: rgba(201,169,110,0.4);
-    text-decoration: none; letter-spacing: 0.06em;
-    transition: color 0.3s;
-  }
+  .footer-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+  .footer-links a { font-size: 12px; color: rgba(201,169,110,0.4); text-decoration: none; letter-spacing: 0.06em; transition: color 0.3s; }
   .footer-links a:hover { color: var(--gold2); }
 
   /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.04); }
-  }
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .scroll-reveal {
-    opacity: 0; transform: translateY(32px);
-    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .scroll-reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
   .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
-  .delay-1 { transition-delay: 0.1s; }
-  .delay-2 { transition-delay: 0.2s; }
-  .delay-3 { transition-delay: 0.3s; }
-  .delay-4 { transition-delay: 0.4s; }
+  .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; } .delay-4 { transition-delay: 0.4s; }
 
   /* divider */
-  .divider {
-    width: 100%; height: 0.5px;
-    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.2), transparent);
-    margin: 0 auto;
-  }
+  .divider { width: 100%; height: 0.5px; background: linear-gradient(90deg, transparent, rgba(201,169,110,0.2), transparent); margin: 0 auto; }
 
+  /* RESPONSIVE MEDIA QUERIES */
   @media (max-width: 1024px) {
     .signs-grid { grid-template-columns: repeat(3, 1fr); }
     .planets-grid { grid-template-columns: repeat(4, 1fr); }
     .reading-section { flex-direction: column; gap: 48px; }
     .reading-visual { flex: none; width: 100%; max-width: 480px; margin: 0 auto; }
-    .today-inner { grid-template-columns: 1fr; }
+    .today-inner { grid-template-columns: 1fr; gap: 40px; }
     .testimonials-grid { grid-template-columns: 1fr 1fr; }
   }
+
   @media (max-width: 768px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
@@ -601,10 +447,22 @@
     .signs-section, .planets-section { padding: 80px 24px; }
     .signs-grid { grid-template-columns: repeat(2, 1fr); }
     .planets-grid { grid-template-columns: repeat(3, 1fr); }
-    .reading-section, .horoscope-section, .testimonials-section { padding: 80px 24px; }
+    .reading-section, .horoscope-section, .testimonials-section, .cta-section { padding: 80px 24px; }
     .today-card { padding: 32px; }
     .testimonials-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 24px; align-items: center; text-align: center; }
+    footer { flex-direction: column; gap: 24px; align-items: center; text-align: center; padding: 40px 24px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 480px) {
+    .signs-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } /* Clean 2-column aesthetic */
+    .planets-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .today-stats { grid-template-columns: 1fr; gap: 12px; }
+    .today-card, .chart-card { padding: 24px; border-radius: var(--r2); }
+    .hero-actions { flex-direction: column; width: 100%; }
+    .btn-primary, .btn-ghost { width: 100%; text-align: center; }
+    .cta-input-row { flex-direction: column; width: 100%; }
+    .cta-input-row button { width: 100%; }
   }
 </style>
 </head>
@@ -614,7 +472,6 @@
 <div class="cursor-ring" id="cursorRing"></div>
 <canvas class="stars-canvas" id="stars"></canvas>
 
-<!-- NAV -->
 <nav id="nav">
   <div class="nav-logo">
     <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -640,14 +497,12 @@
   <button class="nav-cta">Begin Your Journey</button>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
   <div class="hero-orb orb3"></div>
 
-  <!-- Zodiac Ring SVG -->
-  <svg class="zodiac-ring" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg" id="zodiacRing">
+  <svg class="zodiac-ring" viewBox="0 0 700 700" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg" id="zodiacRing">
     <circle cx="350" cy="350" r="340" stroke="rgba(201,169,110,0.08)" stroke-width="0.5" stroke-dasharray="4 8"/>
     <circle cx="350" cy="350" r="300" stroke="rgba(201,169,110,0.06)" stroke-width="0.5"/>
     <circle cx="350" cy="350" r="260" stroke="rgba(201,169,110,0.04)" stroke-width="0.5" stroke-dasharray="2 6"/>
@@ -692,7 +547,6 @@
 
 <div class="divider"></div>
 
-<!-- ZODIAC SIGNS -->
 <section class="signs-section" id="signs">
   <div class="section-header scroll-reveal">
     <span class="section-label">The Twelve Signs</span>
@@ -717,7 +571,6 @@
 
 <div class="divider"></div>
 
-<!-- BIRTH CHART READING -->
 <section class="reading-section" id="reading">
   <div class="reading-visual scroll-reveal">
     <div class="chart-card">
@@ -758,7 +611,6 @@
 
 <div class="divider"></div>
 
-<!-- TODAY'S HOROSCOPE -->
 <section class="horoscope-section" id="today">
   <div class="section-header scroll-reveal" style="margin-bottom: 48px;">
     <span class="section-label">Daily Guidance</span>
@@ -785,7 +637,6 @@
 
 <div class="divider"></div>
 
-<!-- PLANETS -->
 <section class="planets-section" id="planets">
   <div class="planets-inner">
     <div class="section-header scroll-reveal">
@@ -806,7 +657,6 @@
 
 <div class="divider"></div>
 
-<!-- TESTIMONIALS -->
 <section class="testimonials-section">
   <div class="section-header scroll-reveal">
     <span class="section-label">Cosmic Community</span>
@@ -842,7 +692,6 @@
 
 <div class="divider"></div>
 
-<!-- CTA -->
 <section class="cta-section">
   <div class="cta-glow"></div>
   <h2 class="scroll-reveal">Begin your<br><em>celestial journey</em></h2>
@@ -853,7 +702,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div>
     <div class="footer-logo">✦ Celestia</div>
@@ -868,7 +716,7 @@
 </footer>
 
 <script>
-// Custom cursor
+// Custom cursor handling
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
